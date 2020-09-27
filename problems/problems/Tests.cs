@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Win32.SafeHandles;
 using problems.Classes;
 
 namespace problems
@@ -24,7 +25,7 @@ namespace problems
         [TestMethod]
         public void TestMethod2()
         {
-            var nums = new[] { -2, 1, -3, 4, -1, 2, 1, -5, 4 };
+            var nums = new[] {-2, 1, -3, 4, -1, 2, 1, -5, 4};
 
             var size = nums.Length;
             var max_so_far = int.MinValue;
@@ -105,7 +106,7 @@ namespace problems
         [TestMethod]
         public void TestMethod6()
         {
-            var array = new[] { "practice", "makes", "perfect", "coding", "makes" };
+            var array = new[] {"practice", "makes", "perfect", "coding", "makes"};
             var value = ShortestDistance(array, "practice", "coding");
 
             var dd = "";
@@ -116,7 +117,7 @@ namespace problems
         public void TestMethod7()
         {
             var str = "leetcode";
-            var arr = new[] { "leet", "code" };
+            var arr = new[] {"leet", "code"};
 
             WordBreak(str, arr);
 
@@ -125,7 +126,7 @@ namespace problems
         [TestMethod]
         public void TestMethod8()
         {
-            var arr = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 9 };
+            var arr = new[] {0, 1, 2, 3, 4, 5, 6, 7, 9};
 
             MissingNumber(arr);
 
@@ -135,7 +136,7 @@ namespace problems
         public void TestMethod9()
         {
             //var arr = new[] {"dig1 8 1 5 1", "let1 art can", "dig2 3 6", "let2 own kit dig", "let3 art zero"};
-            var arr = new[] { "a1 9 2 3 1", "g1 act car", "zo4 4 7", "ab1 off key dog", "a8 act zoo", "a2 act car" };
+            var arr = new[] {"a1 9 2 3 1", "g1 act car", "zo4 4 7", "ab1 off key dog", "a8 act zoo", "a2 act car"};
 
             ReorderLogFiles2(arr);
 
@@ -154,10 +155,10 @@ namespace problems
         [TestMethod]
         public void TestMethod11()
         {
-            var products = new[] { "mobile", "mouse", "moneypot", "monitor", "mousepad" };
+            var products = new[] {"mobile", "mouse", "moneypot", "monitor", "mousepad"};
             var searchWord = "mouse";
 
-            string[] banned = new[] { "4" };
+            string[] banned = new[] {"4"};
             string paragraph = "";
 
             paragraph = paragraph.ToLower();
@@ -184,7 +185,7 @@ namespace problems
         public void TestMethod13()
         {
             var top = 2;
-            var array = new[] { 1, 1, 1, 2, 2, 3 };
+            var array = new[] {1, 1, 1, 2, 2, 3};
 
             //TopKFrequent(array, top);
         }
@@ -194,15 +195,15 @@ namespace problems
         public void TestMethod14()
         {
             var flightLength = 90;
-            var movieLengths = new[] { 1, 10, 25, 35, 60 };
+            var movieLengths = new[] {1, 10, 25, 35, 60};
 
             MoviesOnAFlight(flightLength, movieLengths);
 
-            var movieLengths2 = new[] { 20, 50, 40, 25, 30, 10 };
+            var movieLengths2 = new[] {20, 50, 40, 25, 30, 10};
             MoviesOnAFlight(flightLength, movieLengths2);
 
 
-            var movieLengths3 = new[] { 90, 85, 75, 60, 120, 150, 125 };
+            var movieLengths3 = new[] {90, 85, 75, 60, 120, 150, 125};
             flightLength = 250;
             MoviesOnAFlight(flightLength, movieLengths3);
         }
@@ -210,8 +211,9 @@ namespace problems
         [TestMethod]
         public void TestMethod15()
         {
-            TopNBuzzwords(6, 2, new List<string> { "elmo", "elsa", "legos", "drone", "tablet", "warcraft" }, 6,
-                new List<string> {
+            TopNBuzzwords(6, 2, new List<string> {"elmo", "elsa", "legos", "drone", "tablet", "warcraft"}, 6,
+                new List<string>
+                {
                     "Elmo is the hottest of the season! Elmo will be on every kid's wishlist!",
                     "The new Elmo dolls are super high quality",
                     "Expect the Elsa dolls to be very popular this year, Elsa!",
@@ -307,15 +309,15 @@ namespace problems
         [TestMethod]
         public void TestMethod18()
         {
-            var array = new[] { 2, 2, 2, 3, 5, 5, 7, 7, 7, 8, 8, 10, 10, 10, 10, 10, 12, 15, 15 };
+            var array = new[] {2, 2, 2, 3, 5, 5, 7, 7, 7, 8, 8, 10, 10, 10, 10, 10, 12, 15, 15};
             var target = 7;
             CountNumberInSortedArray(array, target);
 
-            array = new[] { 2, 2, 2, 3, 5, 5, 7, 7, 7, 8, 8, 10, 10, 10, 10, 10, 12, 15, 15 };
+            array = new[] {2, 2, 2, 3, 5, 5, 7, 7, 7, 8, 8, 10, 10, 10, 10, 10, 12, 15, 15};
             target = 10;
             CountNumberInSortedArray(array, target);
 
-            array = new[] { 1, 1, 1, 4, 4, 6, 6, 6 };
+            array = new[] {1, 1, 1, 4, 4, 6, 6, 6};
             target = 2;
             CountNumberInSortedArray(array, target);
         }
@@ -356,13 +358,13 @@ namespace problems
         [TestMethod]
         public void TestMethod22()
         {
-            var array = new[] { 6, 5, 4 };
+            var array = new[] {6, 5, 4};
             RollDice(array);
 
-            array = new[] { 6, 6, 1 };
+            array = new[] {6, 6, 1};
             RollDice(array);
 
-            array = new[] { 6, 1, 5, 4 };
+            array = new[] {6, 1, 5, 4};
             RollDice(array);
         }
 
@@ -380,17 +382,20 @@ namespace problems
         public void TestMethod24()
         {
             var d = 4;
-            var arr = new int[] { 1, 2, 3, 4, 5 };
+            var arr = new int[] {1, 2, 3, 4, 5};
             rotLeft(arr, d);
         }
 
         [TestMethod]
         public void TestMethod25()
         {
-            char[,] grid = {{'O', 'O', 'O', 'O'},
+            char[,] grid =
+            {
+                {'O', 'O', 'O', 'O'},
                 {'D', 'O', 'D', 'O'},
                 {'O', 'O', 'O', 'O'},
-                {'X', 'D', 'D', 'O'}};
+                {'X', 'D', 'D', 'O'}
+            };
 
             TreasureIsland(grid);
         }
@@ -419,7 +424,7 @@ namespace problems
         [TestMethod]
         public void TestMethod27()
         {
-            var array = new int[] { 2, 4, 5, 3, 3, 9, 2, 2, 2 };
+            var array = new int[] {2, 4, 5, 3, 3, 9, 2, 2, 2};
 
             LoadBalancer(array);
         }
@@ -437,13 +442,13 @@ namespace problems
             //     11   2   3 15  8
 
             var left = new Node(12);
-            left.children = new List<Node> { new Node(11), new Node(2), new Node(3) };
+            left.children = new List<Node> {new Node(11), new Node(2), new Node(3)};
 
             var right = new Node(18);
-            right.children = new List<Node> { new Node(15), new Node(8) };
+            right.children = new List<Node> {new Node(15), new Node(8)};
 
             var root = new Node(20);
-            root.children = new List<Node> { left, right };
+            root.children = new List<Node> {left, right};
 
             var maxNode = GetMaximumAverage(root);
 
@@ -465,7 +470,7 @@ namespace problems
             //root.children = new List<Node> { left1, left2, right1, right2 };
 
             root = new Node(1);
-            root.children = new List<Node> { new Node(-5), new Node(21), new Node(5), new Node(-1) };
+            root.children = new List<Node> {new Node(-5), new Node(21), new Node(5), new Node(-1)};
 
             maxNode = GetMaximumAverage(root);
 
@@ -475,7 +480,8 @@ namespace problems
         [TestMethod]
         public void TestMethod29()
         {
-            int[,] grid = {
+            int[,] grid =
+            {
                 {0, 1, 1, 0, 1},
                 {0, 1, 0, 1, 0},
                 {0, 0, 0, 0, 1},
@@ -490,21 +496,21 @@ namespace problems
         public void TestMethod30()
         {
             var numOfCities = 3;
-            var cities = new[] { "c1", "c2", "c3" };
-            var xCoordinates = new[] { 3, 2, 1 };
-            var yCoordinates = new[] { 3, 2, 3 };
+            var cities = new[] {"c1", "c2", "c3"};
+            var xCoordinates = new[] {3, 2, 1};
+            var yCoordinates = new[] {3, 2, 3};
             var numOfQueries = 3;
-            var queries = new[] { "c1", "c2", "c3" };
+            var queries = new[] {"c1", "c2", "c3"};
 
             var result = NearestCities(numOfCities, cities.ToList(), xCoordinates.ToList(), yCoordinates.ToList(),
                 numOfQueries, queries.ToList());
 
             numOfCities = 6;
-            cities = new[] { "green", "yellow", "red", "blue", "grey", "pink" };
-            xCoordinates = new[] { 10, 20, 15, 30, 10, 15 };
-            yCoordinates = new[] { 30, 25, 30, 40, 25, 25 };
+            cities = new[] {"green", "yellow", "red", "blue", "grey", "pink"};
+            xCoordinates = new[] {10, 20, 15, 30, 10, 15};
+            yCoordinates = new[] {30, 25, 30, 40, 25, 25};
             numOfQueries = 4;
-            queries = new[] { "grey", "blue", "red", "pink" };
+            queries = new[] {"grey", "blue", "red", "pink"};
 
             result = NearestCities(numOfCities, cities.ToList(), xCoordinates.ToList(), yCoordinates.ToList(),
                 numOfQueries, queries.ToList());
@@ -536,6 +542,7 @@ namespace problems
                     temp.Add(child);
                     hmap[parent] = temp;
                 }
+
                 if (!hmap.ContainsKey(child))
                 {
                     hmap.Add(child, new List<int>());
@@ -548,6 +555,586 @@ namespace problems
             maxTenureNode = -1;
 
             FindHighestTenure(hmap, parentNode);
+        }
+
+        [TestMethod]
+        public void TestMethod32()
+        {
+            var inventory = new List<int>();
+            inventory.Add(2);
+            inventory.Add(8);
+            inventory.Add(4);
+            inventory.Add(10);
+            inventory.Add(6);
+
+            var val = MaxProfit(inventory, 20); // 110
+            inventory.Clear();
+
+            inventory.Add(2);
+            inventory.Add(5);
+
+            val = MaxProfit(inventory, 4); // 14
+            inventory.Clear();
+
+            inventory.Add(3);
+            inventory.Add(5);
+            val = MaxProfit(inventory, 6); //19
+        }
+
+
+        [TestMethod]
+        public void TestMethod33()
+        {
+            var blocks = new[] {"10", "20", "X", "+"};
+            var val = BaseBallScoreKeeping(blocks); // 130
+
+            blocks = new[] {"10", "20", "Z", "30", "+"};
+            val = BaseBallScoreKeeping(blocks); // 80
+        }
+
+        [TestMethod]
+        public void TestMethod34()
+        {
+            var numComputer = 3;
+            var hardDiskSpace = new[] {8, 2, 4};
+            var segmentLength = 2;
+
+            var val = MaxAvailableDiskSpace(numComputer, hardDiskSpace, segmentLength);
+        }
+
+        [TestMethod]
+        public void TestMethod35()
+        {
+            int[,] grid =
+            {
+                {7, 5, 3},
+                {2, 0, 9},
+                {4, 5, 9}
+            };
+
+            var val = MaxOfMinAltitude(grid); //3
+
+            int[,] grid2 =
+            {
+                {5, 1},
+                {4, 5}
+            };
+
+            //Explanation:
+            //Possible paths:
+            //Here are some paths from[0, 0] to[2, 2] and the minimum value on each path:
+            //7 -> 2 -> 4 -> 5 -> 9 => min value is 2
+            //7 -> 2 -> 0 -> 9 -> 9 => min value is 0
+            //7 -> 2 -> 0 -> 5 -> 9 => min value is 0
+            //In the end the max score(the min value) of all the paths is 3.
+
+            val = MaxOfMinAltitude(grid2); //4
+            //Explanation:
+            //Possible paths:
+            //5 -> 1 -> 5 => min value is 1
+            //5 -> 4 -> 5 => min value is 4
+            //Return the max value among minimum values => max(4, 1) = 4.
+
+            int[,] grid3 =
+            {
+                {1, 2, 3},
+                {4, 5, 1}
+            };
+
+            val = MaxOfMinAltitude(grid3); //4 
+            //Explanation:
+            //Possible paths:
+            //1 -> 2 -> 3 -> 1
+            //1 -> 2 -> 5 -> 1
+            //1 -> 4 -> 5 -> 1
+            //So min of all the paths = [2, 2, 4].Note that we don't include the first and final entry.
+            //Return the max of that, so 4.
+        }
+
+        [TestMethod]
+        public void TestMethod36()
+        {
+            // https://www.geeksforgeeks.org/shortest-distance-between-two-nodes-in-bst/
+
+            TestNode root = null;
+            root = Insert(root, 2);
+            Insert(root, 1);
+            Insert(root, 3);
+
+            var val = FindDistWrapper(root, 1, 3);
+        }
+
+
+        [TestMethod]
+        public void TestMethod37()
+        {
+            var k = 2;
+            var keywords = new[] {"anacell", "cetracular", "betacellular"};
+            var reviews = new[]
+            {
+                "Anacell provides the best services in the city",
+                "betacellular has awesome services",
+                "Best services provided by anacell, everyone should use anacell",
+            };
+
+            var val = GetTopKFrequent(k, keywords, reviews);
+
+
+            k = 2;
+            keywords = new[] {"anacell", "betacellular", "cetracular", "deltacellular", "eurocell"};
+            reviews = new[]
+            {
+                "I love anacell Best services; Best services provided by anacell",
+                "betacellular has great services",
+                "deltacellular provides much better services than betacellular",
+                "cetracular is worse than anacell",
+                "Betacellular is better than deltacellular.",
+            };
+
+            val = GetTopKFrequent(k, keywords, reviews);
+        }
+
+        [TestMethod]
+        public void TestMethod38()
+        {
+            char[,] grid = 
+            {
+                {'1', '1', '1', '1', '0'},
+                {'1', '1', '0', '1', '0'},
+                {'1', '1', '0', '0', '0'},
+                {'0', '0', '0', '0', '0'}
+            };
+
+            var val = NumberOfIslands(grid);
+
+            char[,] grid2 =
+            {
+                {'1', '1', '0', '0', '0'},
+                {'1', '1', '0', '0', '0'},
+                {'0', '0', '1', '0', '0'},
+                {'0', '0', '0', '1', '1'}
+            };
+
+            val = NumberOfIslands(grid2);
+        }
+
+        [TestMethod]
+        public void TestMethod39()
+        {
+            var paragraph = "Bob hit a ball, the hit BALL flew far after it was hit.";
+            var banned = new[] {"hit"};
+
+            var val = MostCommonWord(paragraph, banned); //Output: "ball"
+        }
+
+        [TestMethod]
+        public void TestMethod40()
+        {
+            var ropes = new[] {8, 4, 6, 12};
+            var val = MinCostToConnectRopes(ropes); //58
+
+            ropes = new[] { 20, 4, 8, 2 };
+            val = MinCostToConnectRopes(ropes); //54
+
+            ropes = new[] { 1, 2, 5, 10, 35, 89 };
+            val = MinCostToConnectRopes(ropes); //224
+
+            ropes = new[] { 2, 2, 3, 3 };
+            val = MinCostToConnectRopes(ropes); //20
+        }
+
+        [TestMethod]
+        public void TestMethod41()
+        {
+            var days = 7;
+            var cells = new[] { 0, 1, 0, 1, 1, 0, 0, 1 };
+
+            var val = PrisonAfterNDays(cells, days); //output [0,0,1,1,0,0,0,0]
+            /*
+            Explanation:
+            The following table summarizes the state of the prison on each day:
+            Day 0: [0, 1, 0, 1, 1, 0, 0, 1]
+            Day 1: [0, 1, 1, 0, 0, 0, 0, 0]
+            Day 2: [0, 0, 0, 0, 1, 1, 1, 0]
+            Day 3: [0, 1, 1, 0, 0, 1, 0, 0]
+            Day 4: [0, 0, 0, 0, 0, 1, 0, 0]
+            Day 5: [0, 1, 1, 1, 0, 1, 0, 0]
+            Day 6: [0, 0, 1, 0, 1, 1, 0, 0]
+            Day 7: [0, 0, 1, 1, 0, 0, 0, 0]
+            */
+
+            days = 1000000000;
+            cells = new[] { 1, 0, 0, 1, 0, 0, 1, 0 };
+
+            val = PrisonAfterNDays(cells, days); //output [0,0,1,1,1,1,1,0]
+        }
+
+        public int[] PrisonAfterNDays(int[] cells, int N)
+        {
+            var seen = new Dictionary<int, int>();
+            var isFastForwarded = false;
+
+            // step 1). convert the cells to bitmap
+            var stateBitmap = 0x0;
+            foreach (var cell in cells)
+            {
+                stateBitmap <<= 1;
+                stateBitmap = (stateBitmap | cell);
+            }
+
+            // step 2). run the simulation with dictionary
+            while (N > 0)
+            {
+                if (!isFastForwarded)
+                {
+                    if (seen.ContainsKey(stateBitmap))
+                    {
+                        // the length of the cycle is seen[state_key] - N
+                        N %= seen[stateBitmap] - N;
+                        isFastForwarded = true;
+                    }
+                    else
+                        seen.Add(stateBitmap, N);
+                }
+                // check if there is still some steps remained,
+                // with or without the fast forwarding.
+                if (N > 0)
+                {
+                    N -= 1;
+                    stateBitmap = this.nextDay(stateBitmap);
+                }
+            }
+
+            // step 3). convert the bitmap back to the state cells
+            var result = new int[cells.Length];
+            for (var i = cells.Length - 1; i >= 0; i--)
+            {
+                result[i] = (stateBitmap & 0x1);
+                stateBitmap >>= 1;
+            }
+            return result;
+        }
+
+        private int nextDay(int stateBitmap)
+        {
+            stateBitmap = ~(stateBitmap << 1) ^ (stateBitmap >> 1);
+            // set the head and tail to zero
+            stateBitmap = stateBitmap & 0x7e;
+            return stateBitmap;
+        }
+
+        public int MinCostToConnectRopes(int[] ropes)
+        {
+            if (ropes == null || !ropes.Any()) return 0;
+
+            var operand = new List<int>(ropes);
+            var finalSum = 0;
+            while (operand.Count > 1)
+            {
+                operand = operand.OrderBy(x => x).ToList();
+                var op1 = operand.FirstOrDefault();
+                operand.Remove(op1);
+
+                var op2 = operand.FirstOrDefault();
+                operand.Remove(op2);
+
+                var sum = op1 + op2;
+                finalSum += sum;
+
+                operand.Add(sum);
+            }
+            return finalSum;
+        }
+
+        public string MostCommonWord(string paragraph, string[] banned)
+        {
+            var results = new Dictionary<string, int>();
+            banned = banned.Select(s => s.ToLowerInvariant()).ToArray();
+
+            var words = paragraph.Split(" ");
+            foreach (var word in words)
+            {
+                var updatedWord = containsLetters(word);
+                if (!banned.Contains(updatedWord))
+                {
+                    if (!results.ContainsKey(updatedWord))
+                    {
+                        results.Add(updatedWord, 1);
+                    }
+                    else
+                    {
+                        results[updatedWord] += 1;
+                    }
+                }
+            }
+
+            return results.OrderByDescending(x => x.Value).First().Key;
+        }
+
+
+        private string containsLetters(string word)
+        {
+            word = word.ToLower();
+            var sb = new StringBuilder();
+
+            foreach (char a in word)
+            {
+                if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z'))
+                {
+                    sb.Append(a);
+                }
+            }
+            return sb.ToString();
+        }
+
+        private static TestNode NewNode(int key)
+        {
+            var ptr = new TestNode
+            {
+                key = key, 
+                left = null, 
+                right = null
+            };
+            
+            return ptr;
+        }
+
+        // Standard BST insert function  
+        private static TestNode Insert(TestNode root, int key)
+        {
+            if (root == null)
+                root = NewNode(key);
+            else if (root.key > key)
+                root.left = Insert(root.left, key);
+            else if (root.key < key)
+                root.right = Insert(root.right, key);
+            
+            return root;
+        }
+
+        // This function returns distance of x from  
+        // root. This function assumes that x exists  
+        // in BST and BST is not NULL.  
+        private static int DistanceFromRoot(TestNode root, int x)
+        {
+            if (root.key == x)
+                return 0;
+            if (root.key > x)
+                return 1 + DistanceFromRoot(root.left, x);
+            
+            return 1 + DistanceFromRoot(root.right, x);
+        }
+
+        // Returns minimum distance beween a and b.  
+        // This function assumes that a and b exist  
+        // in BST.  
+        private static int DistanceBetween2(TestNode root, int a, int b)
+        {
+            while (true)
+            {
+                if (root == null) return 0;
+
+                // Both keys lie in left  
+                if (root.key > a && root.key > b)
+                {
+                    root = root.left;
+                    continue;
+                }
+
+                // Both keys lie in right  
+                if (root.key < a && root.key < b) // same path  
+                {
+                    root = root.right;
+                    continue;
+                }
+
+                // Lie in opposite directions (Root is  
+                // LCA of two nodes)  
+                if (root.key >= a && root.key <= b) return DistanceFromRoot(root, a) + DistanceFromRoot(root, b);
+
+                return 0;
+            }
+        }
+
+        // This function make sure that a is smaller  
+        // than b before making a call to findDistWrapper()  
+        private static int FindDistWrapper(TestNode root, int a, int b)
+        {
+            if (a > b)
+            {
+                var temp = a;
+                a = b;
+                b = temp;
+            }
+            return DistanceBetween2(root, a, b);
+        }
+
+        public int MaxOfMinAltitude(int[,] grid)
+        {
+            if (grid == null || grid.Length == 0)
+                return 0;
+            
+            var row = grid.GetLength(0);
+            var column = grid.GetLength(1);
+
+            var dp = new int[grid.GetLength(0), grid.GetLength(1)];
+
+            //First entry is not considered
+            dp[0, 0] = int.MaxValue;
+            dp[row - 1, column - 1] = int.MaxValue;
+
+            //Access first column 
+            for (var i = 1; i < dp.GetLength(0); i++)
+            {
+                if (dp[i, 0] != int.MaxValue)
+                {
+                    //For first column grid, compare value from one above 
+                    dp[i, 0] = Math.Min(dp[i - 1, 0], grid[i, 0]);
+                }
+
+            }
+
+            //Access first row
+            for (int j = 1; j < dp.GetLength(1); j++)
+            {
+                if (dp[0, j] != int.MaxValue)
+                {
+                    //For first row, compare value from one left
+                    dp[0, j] = Math.Min(dp[0, j - 1], grid[0, j]);
+                }
+
+            }
+
+            //Access inner matrix
+            for (var i = 1; i < row; i++)
+            {
+                for (var j = 1; j < column; j++)
+                {
+                    if (i == row - 1 && j == column - 1)
+                    {
+                        //For last entry in matrix, it won't compare with itself and take max value from
+                        //above or left
+                        dp[i, j] = Math.Max(dp[i - 1, j], dp[i, j - 1]);
+                    }
+                    else
+                    {
+                        //Score 1 is min value from current grid and left
+                        var score1 = Math.Min(dp[i, j - 1], grid[i, j]);
+                        var score2 = Math.Min(dp[i - 1, j], grid[i, j]);
+                        dp[i, j] = Math.Max(score1, score2);
+                    }
+                }
+            }
+
+            return dp[row - 1, column - 1] == int.MaxValue ? 0 : dp[row - 1, column - 1];
+        }
+
+        public int MaxAvailableDiskSpace(int numComputer, int[] hardDiskSpace, int segmentLength)
+        {
+            //https://leetcode.com/problems/sliding-window-maximum/solution/
+            // In this array of computers, the subarrays of size 2 are [8,2] and [2,4].
+            // Thus, the initial analysis returns 2 and 2 because those are the minimal for the segments.
+            // Finally the maximum of these values is 2.
+            // Therefore, the answer is 2.
+
+            var n = hardDiskSpace.Length; 
+            var k = segmentLength; 
+
+            var left = new int[n];
+            var right = new int[n];
+            left[0] = hardDiskSpace[0]; 
+            right[n - 1] = hardDiskSpace[n - 1];
+            
+            for (var i = 1; i < n; i++)
+            {
+                if (i % k == 0)
+                    left[i] = hardDiskSpace[i];
+                else
+                    left[i] = Math.Min(left[i - 1], hardDiskSpace[i]);
+                
+                var j = n - i - 1;
+                if ((j + 1) % k == 0)
+                    right[j] = hardDiskSpace[j];
+                else
+                    right[j] = Math.Min(right[j + 1], hardDiskSpace[j]);
+            }
+
+            var answer = new List<int>();
+            for (var i = 0; i + k - 1 < n; i++)
+            {
+                var currentVal = Math.Min(right[i], left[i + k - 1]);
+                answer.Add(currentVal);
+            }
+
+            return answer.Concat(new[] {0}).Max();
+        }
+
+        public int BaseBallScoreKeeping(string[] ops)
+        {
+            var stack = new Stack<int>();
+
+            foreach (var op in ops)
+            {
+                if (op.Equals("+"))
+                {
+                    var top = stack.Pop();
+                    var newtop = top + stack.Peek();
+                    stack.Push(top);
+                    stack.Push(newtop);
+                }
+                else if (op.Equals("X"))
+                {
+                    stack.Push(2 * stack.Peek());
+                }
+                else if (op.Equals("Z"))
+                {
+                    stack.Pop();
+                }
+                else
+                {
+                    stack.Push(int.Parse(op));
+                }
+            }
+
+            return stack.Sum();
+        }
+
+        public int MaxProfit(List<int> inventory, int orders)
+        {
+            var profit = new Dictionary<int, int>();
+            
+            foreach (var price in inventory)
+            {
+                if (profit.ContainsKey(price))
+                    profit[price] = profit[price] + 1;
+                else 
+                    profit.Add(price, 1);
+            }
+
+            var currentMax = profit.Select(x => x).Max(x => x.Key);
+
+            var result = 0;
+            while (orders > 0)
+            {
+                var maxi = Math.Min(orders, profit[currentMax]);
+                result += currentMax * maxi;
+                orders -= maxi;
+                
+                profit[currentMax] -= maxi;
+                
+                if(profit.ContainsKey(currentMax - 1))
+                    profit[currentMax - 1] = profit[currentMax - 1] + maxi;
+                else
+                    profit.Add(currentMax - 1, maxi); 
+
+                if (profit[currentMax] == 0)
+                {
+                    profit.Remove(currentMax);
+                    currentMax -= 1;
+                }
+            }
+
+            return result;
         }
 
 
@@ -1247,6 +1834,36 @@ namespace problems
             return answer;
         }
 
+        public int NumberOfIslands(char[,] grid)
+        {
+            var count = 0;
+            for (var i = 0; i < grid.GetLength(0); i++)
+            {
+                for (var j = 0; j < grid.GetLength(1); j++)
+                {
+                    if (grid[i, j] == '1')
+                    {
+                        count += 1;
+                        GetBFS(grid, i, j);
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        private static void GetBFS(char[,] grid, int i, int j)
+        {
+            if (i < 0 || i >= grid.GetLength(0)|| j < 0 || j >= grid.GetLength(1) || grid[i, j] == '0')
+                return;
+
+            grid[i, j] = '0';
+            GetBFS(grid, i + 1, j); // up
+            GetBFS(grid, i - 1, j); // down
+            GetBFS(grid, i, j + 1); // left
+            GetBFS(grid, i, j - 1); // right
+        }
+
         public List<string> TopNBuzzwords(int numToys, int topToys, List<string> toys, int numQuotes, List<string> quotes)
         {
             var toySet = new HashSet<string>(toys.ToList());
@@ -1380,81 +1997,31 @@ namespace problems
 
             return result.ToArray();
         }*/
-        public int[] TopKFrequentKeywords(string[] keywords, string[] reviews, int k)
-        {
-            var map = new Dictionary<string, int>();
-
-            foreach (var review in reviews)
-            {
-                foreach (var keyword in keywords)
-                {
-                    if (review.ToLower().IndexOf(keyword, StringComparison.Ordinal) >= 0)
-                    {
-                        if (!map.ContainsKey(keyword))
-                            map.Add(keyword, 0);
-                        else
-                            map[keyword] = map[keyword] + 1;
-                    }
-                }
-            }
-
-            //map.Aggregate((x, y) => x.Value != y.Value ? y.Value - x.Value : x.Key.CompareTo(y.Key));
-
-            //return dictionary
-
-            return null;
-        }
 
         private static List<string> GetTopKFrequent(int k, string[] keywords, string[] reviews)
         {
             var count = new Dictionary<string, int>();
             foreach (var review in reviews)
             {
-                var currentWords = new HashSet<string>(review.ToLower().Split("\\W").ToList());
+                var result = Regex.Replace(review, @"[^\w\s]", string.Empty);
+                var currentWords = new HashSet<string>(result.ToLower().Split(" ").ToList());
+                
                 foreach (var word in keywords)
                 {
                     if (currentWords.Contains(word))
-                        count[word] = count[word] += 1;
-                    else
-                        count.Add(word, 1);
+                    {
+                        if(count.ContainsKey(word))
+                            count[word] = count[word] += 1;
+                        else
+                            count.Add(word, 1);
+                    }
                 }
             }
 
-            Console.Write(count);
-
             var candidates = new List<string>(count.Keys).ToArray();
             Array.Sort(candidates, (w1, w2) => count[w1].Equals(count[w2]) ? w1.CompareTo(w2) : count[w2] - count[w1]);
 
             return candidates.ToList().GetRange(0, k);
-
-            /*var maxHeap = new PriorityQueue<string, int>((a, b)->a.getValue().equals(b.getValue()) ? a.getKey().compareTo(b.getKey()) : b.getValue() - a.getValue());
-            maxHeap.addAll(count.entrySet());
-            
-            var answer = new List<string>();
-            while (!maxHeap.isEmpty() && k--> 0)
-                answer.Add(maxHeap.poll().getKey());*/
-
-        }
-
-        public IList<string> TopKFrequent(string[] words, int k)
-        {
-            var count = new Dictionary<string, int>();
-            // var currentWords = new HashSet<string>(review.ToLower().Split("\\W").ToList());
-            foreach (var word in words)
-            {
-                if (count.ContainsKey(word))
-                    count[word] = count[word] += 1;
-                else
-                    count.Add(word, 1);
-            }
-
-            Console.Write(count);
-
-            var candidates = new List<string>(count.Keys).ToArray();
-            Array.Sort(candidates, (w1, w2) => count[w1].Equals(count[w2]) ? w1.CompareTo(w2) : count[w2] - count[w1]);
-
-            return candidates.ToList().GetRange(0, k);
-
         }
 
         public string[] ReorderLogFiles2(string[] logs)

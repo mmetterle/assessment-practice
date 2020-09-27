@@ -11,41 +11,47 @@ namespace problems.Classes
     /// <typeparam name="TElement">The type of the actual elements that are stored</typeparam>
     /// <typeparam name="TKey">The type of the priority.  It probably makes sense to be an int or long, \
     /// but any type that can be the key of a SortedDictionary will do.</typeparam>
-    public class PriorityQueue<TElement, TKey>
+    /// <typeparam name="T"></typeparam>
+    public class PriorityQueue<T>
     {
-        private SortedDictionary<TKey, Queue<TElement>> dictionary = new SortedDictionary<TKey, Queue<TElement>>();
-        private Func<TElement, TKey> selector;
+        // The items and priorities.
+        List<T> Values = new List<T>();
+        List<int> Priorities = new List<int>();
 
-        public PriorityQueue(Func<TElement, TKey> selector)
+        // Return the number of items in the queue.
+        public int NumItems => Values.Count;
+
+        public bool IsEmpty => Values.Count == 0;
+
+        // Add an item to the queue.
+        public void Enqueue(T new_value, int new_priority)
         {
-            this.selector = selector;
+            Values.Add(new_value);
+            Priorities.Add(new_priority);
         }
 
-        public void Enqueue(TElement item)
+        // Remove the item with the largest priority from the queue.
+        public void Dequeue(out T top_value, out int top_priority)
         {
-            TKey key = selector(item);
-            Queue<TElement> queue;
-            if (!dictionary.TryGetValue(key, out queue))
+            // Find the hightest priority.
+            int best_index = 0;
+            int best_priority = Priorities[0];
+            for (int i = 1; i < Priorities.Count; i++)
             {
-                queue = new Queue<TElement>();
-                dictionary.Add(key, queue);
+                if (best_priority < Priorities[i])
+                {
+                    best_priority = Priorities[i];
+                    best_index = i;
+                }
             }
 
-            queue.Enqueue(item);
-        }
+            // Return the corresponding item.
+            top_value = Values[best_index];
+            top_priority = best_priority;
 
-        public TElement Dequeue()
-        {
-            if (dictionary.Count == 0)
-                throw new Exception("No items to Dequeue:");
-            var key = dictionary.Keys.First();
-
-            var queue = dictionary[key];
-            var output = queue.Dequeue();
-            if (queue.Count == 0)
-                dictionary.Remove(key);
-
-            return output;
+            // Remove the item from the lists.
+            Values.RemoveAt(best_index);
+            Priorities.RemoveAt(best_index);
         }
     }
 }
