@@ -769,7 +769,7 @@ namespace problems
             val = PrisonAfterNDays(cells, days); //output [0,0,1,1,1,1,1,0]
         }
 
-        public int[] PrisonAfterNDays(int[] cells, int N)
+        public int[] PrisonAfterNDays(int[] cells, int days)
         {
             var seen = new Dictionary<int, int>();
             var isFastForwarded = false;
@@ -783,25 +783,25 @@ namespace problems
             }
 
             // step 2). run the simulation with dictionary
-            while (N > 0)
+            while (days > 0)
             {
                 if (!isFastForwarded)
                 {
                     if (seen.ContainsKey(stateBitmap))
                     {
                         // the length of the cycle is seen[state_key] - N
-                        N %= seen[stateBitmap] - N;
+                        days %= seen[stateBitmap] - days;
                         isFastForwarded = true;
                     }
                     else
-                        seen.Add(stateBitmap, N);
+                        seen.Add(stateBitmap, days);
                 }
                 // check if there is still some steps remained,
                 // with or without the fast forwarding.
-                if (N > 0)
+                if (days > 0)
                 {
-                    N -= 1;
-                    stateBitmap = this.nextDay(stateBitmap);
+                    days -= 1;
+                    stateBitmap = nextDay(stateBitmap);
                 }
             }
 
@@ -819,7 +819,7 @@ namespace problems
         {
             stateBitmap = ~(stateBitmap << 1) ^ (stateBitmap >> 1);
             // set the head and tail to zero
-            stateBitmap = stateBitmap & 0x7e;
+            stateBitmap &= 0x7e;
             return stateBitmap;
         }
 
@@ -848,6 +848,16 @@ namespace problems
 
         public string MostCommonWord(string paragraph, string[] banned)
         {
+            // paragraph = "Bob hit a ball, the hit BALL flew far after it was hit.";
+            // banned = new[] { "hit" };
+            // 1. convert banned words to lower case
+            // 2. split paragraph by space delimiter and convert to array
+            // 3. iterate over each word in paragraph
+            // 4. inspect each character and verify that it only contains letters, then return word
+            // 5. if word is not banned, add it to dictionary if count  = 1
+            // 6. if not banned and word already exists in dictionary, update the count by 1
+            // 7. return word with highest count by sorting dictionary of words and sort by count, then return key
+
             var results = new Dictionary<string, int>();
             banned = banned.Select(s => s.ToLowerInvariant()).ToArray();
 
@@ -1071,6 +1081,13 @@ namespace problems
 
         public int BaseBallScoreKeeping(string[] ops)
         {
+            // blocks = new[] {"10", "20", "X", "+"}";
+            // 1. In case of an an integer that that value is added to the total
+            // 2. if the value is "+", add the sum of the last two scores to top of stack, pop last one, peek previous then add values back
+            // 3. if the value is "X", double the last value then add to stack
+            // 4. if the value is "Z" pop the last one of stack
+            // 5. return the sum of all values in stack
+
             var stack = new Stack<int>();
 
             foreach (var op in ops)
@@ -1101,6 +1118,17 @@ namespace problems
 
         public int MaxProfit(List<int> inventory, int orders)
         {
+            // input: inventory = new List<int> { 2, 8, 4, 10, 6 }, order = 20
+            // 1. Iterate through inventory and and add price and increment count by 1 for each item that appears 1 or more times
+            // 2. Get the current maximum price from that dictionary
+            // 3. while the orders are greater than zero, get the minimum between orders and current max from dictionary 
+            // 4. multiply current max by the minimum value above and add that to a result
+            // 5. decrement orders by minimum value
+            // 6. decrement currentMax from dictionary by min value
+            // 7. if dictionary contains "current max - 1", update current value with min value. Otherwise, add it with min value
+            // 8. if dictionary entry's value with current max equal to zero, then remove it and decrement current max by 1
+            // 9. When all orders reach zero, return the result
+
             var profit = new Dictionary<int, int>();
             
             foreach (var price in inventory)
@@ -1350,6 +1378,16 @@ namespace problems
 
         public int LoadBalancer(int[] array)
         {
+            // 1. create two pointers (i, j) for array. One starting at second element and one starting at second to last element
+            // 2. create a begin sub array with index 0 and first index i.
+            // 3. pass both values into another method to get total of sub array or substring between both indexes
+            // 4. create a middle sub array with index i + 1 and j - 1 to get elements in between current elements of array.
+            // 5. pass both values into another method to get total of sub array or substring between both indexes
+            // 6. create an end sub array with index j and length of array to get elements after current second element of array.
+            // 7. pass both values into another method to get total of sub array or substring between both indexes
+            // 8. check if all three total equal each other. If they do, then return total
+            // 9. otherwise repeat process and increment i and decrement j until i = j
+
             var i = 1;
             var j = array.Length - 2;
 
@@ -1487,15 +1525,15 @@ namespace problems
                     var current = queue.Dequeue();
                     for (var j = 0; j < dirs.GetLength(0); j++)
                     {
-                        var r = current[0] + dirs[j, 0];
-                        var c = current[1] + dirs[j, 1];
-                        if (r >= grid.Length || r < 0 || c >= grid.GetLength(1) || c < 0 || grid[r, c] == 'D' || visited[r, c])
+                        var row = current[0] + dirs[j, 0];
+                        var column = current[1] + dirs[j, 1];
+                        if (row >= grid.Length || row < 0 || column >= grid.GetLength(1) || column < 0 || grid[row, column] == 'D' || visited[row, column])
                             continue;
 
-                        if (grid[r, c] == 'X') return answer;
+                        if (grid[row, column] == 'X') return answer;
 
-                        queue.Enqueue(new[] { r, c });
-                        visited[r, c] = true;
+                        queue.Enqueue(new[] { row, column });
+                        visited[row, column] = true;
                     }
                 }
                 answer++;
@@ -1940,7 +1978,6 @@ namespace problems
                 {
                     if (sum == max)
                     {
-
                         // This is a check for which pair has the highest length. Since array is sorted, 
                         //movie length order is equivalent to index order and Since i<j && l<h
                         if (pairIdx2 < right)
