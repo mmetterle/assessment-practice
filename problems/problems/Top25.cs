@@ -57,6 +57,64 @@ namespace problems
             return result;
         }
 
+        public int[] TopKFrequentElements(int[] nums, int k)
+        {
+
+            var dictionary = new Dictionary<int, int>();
+
+            for (var i = 0; i < nums.Length; i++)
+            {
+                if (dictionary.ContainsKey(nums[i]))
+                {
+                    dictionary[nums[i]] = dictionary[nums[i]] + 1;
+                }
+                else
+                {
+                    dictionary.Add(nums[i], 1);
+                }
+            }
+
+            var list = new List<int>();
+            for (var i = 0; i < k; i++)
+            {
+                var maxKey = dictionary.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+                if (maxKey != null)
+                {
+                    list.Add(maxKey);
+                    dictionary.Remove(maxKey);
+                }
+            }
+
+            return list.ToArray();
+
+        }
+
+        private static List<string> GetTopKFrequentWords(int k, string[] keywords, string[] reviews)
+        {
+            var count = new Dictionary<string, int>();
+            foreach (var review in reviews)
+            {
+                var result = Regex.Replace(review, @"[^\w\s]", string.Empty);
+                var currentWords = new HashSet<string>(result.ToLower().Split(" ").ToList());
+
+                foreach (var word in keywords)
+                {
+                    if (currentWords.Contains(word))
+                    {
+                        if (count.ContainsKey(word))
+                            count[word] = count[word] += 1;
+                        else
+                            count.Add(word, 1);
+                    }
+                }
+            }
+
+            var candidates = new List<string>(count.Keys).ToArray();
+            Array.Sort(candidates, (w1, w2) => count[w1].Equals(count[w2]) ? w1.CompareTo(w2) : count[w2] - count[w1]);
+
+            return candidates.ToList().GetRange(0, k);
+        }
+
         public ListNode MergeTwoLists(ListNode l1, ListNode l2)
         {
 

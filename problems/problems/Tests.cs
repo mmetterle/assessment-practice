@@ -2120,7 +2120,6 @@ namespace problems
             var start = 0;
             var end = 0;
             var answer = new List<int>();
-            var dictionary = new Dictionary<int, int>();
 
             for (var i = 0; i < S.Length; i++)
             {
@@ -4569,6 +4568,33 @@ namespace problems
 
             return node.left == null && node.right == null;
 
+        }
+
+        [TestMethod]
+        public void TestMethodc()
+        {
+            double[] result = FindAverages(5, new int[] { 1, 3, 2, 6, -1, 4, 1, 8, 2 });
+            Console.Write("Averages of subarrays of size K: " + result.ToString());
+        }
+
+        public static double[] FindAverages(int K, int[] arr)
+        {
+            double[] result = new double[arr.Length - K + 1];
+            double windowSum = 0;
+            int windowStart = 0;
+            for (int windowEnd = 0; windowEnd < arr.Length; windowEnd++)
+            {
+                windowSum += arr[windowEnd]; // add the next element
+                // slide the window, we don't need to slide if we've not hit the required window size of 'k'
+                if (windowEnd >= K - 1)
+                {
+                    result[windowStart] = windowSum / K; // calculate the average
+                    windowSum -= arr[windowStart]; // subtract the element going out
+                    windowStart++; // slide the window ahead
+                }
+            }
+
+            return result;
         }
     }
 }
