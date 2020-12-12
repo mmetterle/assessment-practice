@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Transactions;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
 using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Win32.SafeHandles;
@@ -4360,7 +4361,7 @@ namespace problems
         [TestMethod]
         public void TestMethod100()
         {
-            var result = MostCommonWords("Bob hit a ball, the hit BALL flew far after it was hit.", new [] {"hit"} );
+            var result = MostCommonWords("Bob hit a ball, the hit BALL flew far after it was hit.", new[] {"hit"});
         }
 
         public string MostCommonWords(string paragraph, string[] banned)
@@ -4430,6 +4431,7 @@ namespace problems
                 if (sortedTimes[i][1] > sortedTimes[i + 1][0])
                     return false;
             }
+
             return true;
 
         }
@@ -4541,6 +4543,7 @@ namespace problems
                             item = stack.Pop();
                         item.right = node;
                     }
+
                     stack.Push(node);
                 }
             }
@@ -4573,7 +4576,7 @@ namespace problems
         [TestMethod]
         public void TestMethodc()
         {
-            double[] result = FindAverages(5, new int[] { 1, 3, 2, 6, -1, 4, 1, 8, 2 });
+            double[] result = FindAverages(5, new int[] {1, 3, 2, 6, -1, 4, 1, 8, 2});
             Console.Write("Averages of subarrays of size K: " + result.ToString());
         }
 
@@ -4595,6 +4598,684 @@ namespace problems
             }
 
             return result;
+        }
+
+        [TestMethod]
+        public void TestMethodMerge()
+        {
+            int[] arr = {76, 89, 23, 1, 55, 78, 99, 12, 65, 100};
+            mergeSort(arr, 0, arr.Length - 1);
+        }
+
+        public static void merges(int[] arr, int start, int mid, int end)
+        {
+            int i, j, k;
+            int len1 = mid - start + 1;
+            int len2 = end - mid;
+
+            int[] leftArray = arr.Take(mid - start + 1).ToArray();
+            //int[] rightArray = arr.Take(mid - end).ToArray();
+            int[] rightArray = arr.Skip(mid - start + 1).Take(end - mid + 1).ToArray();
+
+            i = 0;
+            j = 0;
+            k = start;
+
+            while (i < leftArray.Length && j < rightArray.Length)
+            {
+                if (leftArray[i] < rightArray[j])
+                {
+                    arr[k] = leftArray[i];
+                    i++;
+                }
+                else
+                {
+                    arr[k] = rightArray[j];
+                    j++;
+                }
+
+                k++;
+            }
+
+            while (i < leftArray.Length)
+            {
+                arr[k] = leftArray[i];
+                i++;
+                k++;
+            }
+
+            while (j < rightArray.Length)
+            {
+                arr[j] = rightArray[j];
+                j++;
+                k++;
+            }
+        }
+
+
+
+
+
+        public static void merge(int[] arr, int p, int q, int r)
+        {
+            int i, j, k;
+            int n1 = q - p + 1;
+            int n2 = r - q;
+
+            int[] L = new int[n1];
+            int[] R = new int[n2];
+            for (i = 0; i < n1; i++)
+            {
+                L[i] = arr[p + i];
+            }
+
+            for (j = 0; j < n2; j++)
+            {
+                R[j] = arr[q + 1 + j];
+            }
+
+            i = 0;
+            j = 0;
+            k = p;
+            while (i < n1 && j < n2)
+            {
+                if (L[i] <= R[j])
+                {
+                    arr[k] = L[i];
+                    i++;
+                }
+                else
+                {
+                    arr[k] = R[j];
+                    j++;
+                }
+
+                k++;
+            }
+
+            while (i < n1)
+            {
+                arr[k] = L[i];
+                i++;
+                k++;
+            }
+
+            while (j < n2)
+            {
+                arr[k] = R[j];
+                j++;
+                k++;
+            }
+        }
+
+        public static void mergeSort(int[] arr, int p, int r)
+        {
+            if (p >= r)
+                return;
+
+            int q = (p + r) / 2;
+            mergeSort(arr, p, q);
+            mergeSort(arr, q + 1, r);
+            //merge(arr, p, q, r);
+
+            merges(arr, p, q, r);
+        }
+
+        [TestMethod]
+        public void TestMethodMerge2()
+        {
+            //int[] arr1 = { 3, 1, 3, 5 };
+            //int[] arr2 = { 6, 2, 4, 6, 0, 0, 0 };
+
+            int[] arr1 = {2, 5, 10};
+            int[] arr2 = {4, 8, 13, 0, 0};
+
+            //int[] arr2 = {1, 2, 3, 0, 0, 0};
+            //int[] arr1 = {2, 5, 6};
+
+            //int[] arr1 = { 1, 3, 5 };
+            //int[] arr2 = { 2, 4, 6, 0, 0, 0 };
+
+            merger_first_into_second(arr1, arr2);
+        }
+
+        static void merger_first_into_second(int[] arr1, int[] arr2)
+        {
+            //int len1 = 3;
+            //int len2 = 3;
+            //int p1 = len1 - 1;
+            //int p2 = len2 - 1;
+            //int p3 = len1 + len2 - 1;
+
+            int len1 = arr1[0];
+            int len2 = arr2[0] - arr1[0];
+            int p1 = len1 - 1;
+            int p2 = len2 - 1;
+            int p3 = len2 + len1 - 1;
+
+            //int p1 = len1 - 1;
+            //int p2 = len2 - len1;
+            //int p3 = p1 + p2;
+            //int p1 = arr1[0] - 1;
+            //int p2 = arr2[0] - 1;
+            // set pointer for nums1
+            //int p3 = p1 + p2 - 2;
+
+            //arr1 = arr1.Skip(1).ToArray();
+            //arr2 = arr2.Skip(1).ToArray();
+
+            while ((p1 >= 1) && (p2 >= 1))
+            {
+                if (arr1[p1] < arr2[p2])
+                {
+                    arr2[p3] = arr2[p2];
+                    p2--;
+                }
+                else
+                {
+                    arr2[p3] = arr1[p1];
+                    p1--;
+                }
+
+                p3--;
+            }
+
+            while (p1 >= 1)
+            {
+                arr2[p3] = arr1[p1];
+                p1--;
+                p3--;
+            }
+
+            while (p2 >= 1)
+            {
+                arr2[p3] = arr2[p2];
+                p2--;
+                p3--;
+            }
+        }
+
+        [TestMethod]
+        public void TestMethodGroup()
+        {
+            int[] arr = {8, 4, 9, 5, 2, 9, 5, 7, 10};
+            solve(arr);
+        }
+
+        static int[] solve(int[] arr)
+        {
+
+            int left = 1;
+            int right = arr.Length - 1;
+
+            while (left < right)
+            {
+
+                if (arr[left] % 2 != 0 && arr[right] % 2 == 0)
+                {
+                    swap(arr, left, right);
+                    left++;
+                    right--;
+                }
+                else if (arr[left] % 2 != 0 && arr[left] % 2 != 0)
+                {
+                    right--;
+                }
+                else
+                {
+                    left++;
+                }
+            }
+
+            return arr;
+
+        }
+
+        static void swap(int[] arr, int left, int right)
+        {
+
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+        }
+
+        [TestMethod]
+        public void TestGenerateExpressions()
+        {
+            string s = "222";
+            long target = 24;
+            generate_all_expressions(s, target);
+        }
+
+        public static int n;
+        public static string[] generate_all_expressions(string s, long target)
+        {
+            n = s.Length;
+            List<string> collection = new List<string>();
+            collection.Skip(1);
+            helper(s, 0, "", target, 0L, 0L, collection);
+            return collection.ToArray();
+        }
+
+
+        // using mutable data structure
+        public static void helper(string input, int idx, string current_express, long target, long curr_express_val, long curr_express_val_after_right_sign, List<string> coll)
+        {
+            if (idx == n)
+            {
+                if (curr_express_val == target)
+                {
+                    coll.Add(current_express);
+                }
+
+                return;
+            }
+
+            for (int i = idx; i < n; i++)
+            {
+                var str_number_add_as_str = input.Substring(idx, i - idx + 1);
+                var number_to_add = str_to_long(str_number_add_as_str);
+
+                if (idx == 0)
+                {
+                    helper(input, i + 1, str_number_add_as_str, target, number_to_add, number_to_add, coll);
+                }
+                else
+                {
+                    helper(input, i + 1, current_express + "+" + str_number_add_as_str, target,
+                        curr_express_val + number_to_add, number_to_add, coll);
+
+                    helper(input, i + 1, current_express + "*" + str_number_add_as_str, target,
+                        curr_express_val - curr_express_val_after_right_sign + (curr_express_val_after_right_sign * number_to_add), curr_express_val_after_right_sign * number_to_add, coll);
+                }
+
+            }
+            
+            
+            
+            
+            /*else
+            {
+                soFar.Append(input[idx]);
+                int sumSoFar1 = int.Parse(sumSoFar.ToString() + input[idx]);
+                helper2(input, idx + 1, soFar, sumSoFar1, target, coll);
+                soFar.Length--;
+
+
+                //if(soFar.Length > 0)
+                //    soFar.Append("+").Append(input[idx]);
+                //else
+                //    soFar.Append(input[idx]);
+
+                soFar.Append("+").Append(input[idx]);
+                int sumSoFar2 = int.Parse(sumSoFar.ToString()) + (input[idx] - '0');
+                helper2(input, idx + 1, soFar, sumSoFar2, target, coll);
+                soFar.Length -= 2;
+
+                soFar.Append("*").Append(input[idx]);
+                int sumSoFar3 = int.Parse(sumSoFar.ToString()) * (input[idx] - '0');
+                helper2(input, idx + 1, soFar, sumSoFar3, target, coll);
+                soFar.Length -= 2;
+            }*/
+        }
+
+        /*private static long str_to_long(string str_number)
+        {
+            long val = 0;
+            foreach (var num in str_number)
+            {
+                val *= 10L + (num - '0');
+            }
+
+            return val;
+        }*/
+
+        private static long str_to_long(string str_number)
+        {
+            long val = 0;
+            int len = str_number.Length;
+            for (int i = 0; i < len; i++)
+            {
+                val = val * 10L + (str_number[i] - '0');
+            }
+            return val;
+        }
+
+        [TestMethod]
+        public void TestPalindrome()
+        {
+            string s = "abracadabra";
+            //string s = "aab";
+            generate_palindromic_decompositions(s);
+        }
+
+        //public static string[] generate_palindromic_decompositions(string s)
+        public static List<string> generate_palindromic_decompositions(string s)
+        {
+            //List<string> collection = new List<string>();
+            //palindromeHelper(s, 0, new StringBuilder(), collection);
+            List<string> collection = new List<string>();
+            palindromeHelper(s, 0, new StringBuilder(), collection);
+            return collection;
+        }
+
+        public static void palindromeHelper(string s, int start, StringBuilder soFar, List<string> collection)
+        {
+
+            if (start >= s.Length)
+            {
+                //soFar.Length--;
+                collection.Add(soFar.ToString());
+                //collection.Add(current.ToList());
+                //collection.Add(new List<string>(current));
+            }
+            else
+            {
+                //soFar.Append(s[idx]);
+                //if(idx + 1 < s.Length) soFar.Append("|"); 
+                //palindromeHelper(s, idx + 1, soFar, collection);
+                //soFar.Length -= 2;
+
+                //var substr = getPalindromeAroundCenter(s, i, i);
+
+                //var substr = getPalindromeAroundCenter(s, start, end);
+                //soFar.Append(substr);
+                //if (start + 1 < s.Length) soFar.Append("|");
+                //palindromeHelper(s, start + 1, end + 1, soFar, collection);
+
+
+                for (int end = start; end < s.Length; end++)
+                {
+                    if(IsPalindrome(s, start, end))
+                    {
+                        string currentSubstr = s.Substring(start, end - start + 1);
+                        soFar.Append(currentSubstr).Append("|");
+
+                        palindromeHelper(s, end + 1, soFar, collection);
+                        //soFar.RemoveAt(current.Count - 1);
+                        soFar.Length -= currentSubstr.Length + 1;
+                    }
+                    
+                    //if (substri.Length == end)
+                    //    start = end + 1;
+                    
+                    //soFar.Append(candidates[i]);
+                    //Helper(remain - candidates[i], soFar, i, candidates, collection);
+                    //soFar.RemoveAt(soFar.Count - 1);
+                }
+                //palindromeHelper(s, idx + 1, soFar, collection);
+                //soFar.Length -= substr.Length + 1;
+                //soFar.Length--;
+
+                /*for (int i = 0; i < s.Length; i++)
+                {
+
+                    //odd length
+                    var substr = getPalindromeAroundCenter(s, i, i);
+
+                    soFar.Append(s[idx]);
+                    palindromeHelper(s, idx + 1, soFar, collection);
+                    soFar.Length - 2;
+
+                    //even length
+                    substr = getPalindromeAroundCenter(s, i, i + 1);
+
+                    soFar.Append(s[idx]);
+                    palindromeHelper(s, idx + 1, soFar, collection);
+                    soFar.Length - 2;
+                }*/
+            }
+        }
+
+
+        private static bool IsPalindrome(string ss, int lo, int hi)
+        { 
+            while (lo < hi)
+            {
+                if (ss[lo] != ss[hi])
+                    return false;
+
+                lo++;
+                hi--;
+            }
+
+            return true;
+        }
+
+        /*while (lo >= 0 && hi<ss.length()) {
+            if (ss.charAt(lo) != ss.charAt(hi))
+                break;      // the first and last characters don't match!
+
+            // expand around the center
+            lo--;
+            hi++;
+
+            ans++;
+        }*/
+
+    [TestMethod]
+        public void TestPermeate()
+        {
+            int[] nums = {1, 1, 2};
+            PermuteUnique(nums);
+        }
+
+        public IList<IList<int>> PermuteUnique(int[] nums)
+        {
+            List<IList<int>> collection = new List<IList<int>>();
+            helper(nums, 0, new List<int>(), collection);
+            return collection;
+        }
+
+        public void helper(int[] nums, int idx, IList<int> soFar, List<IList<int>> collection)
+        {
+
+            if (idx == nums.Length)
+            {
+                collection.Add(soFar);
+            }
+            else
+            {
+                HashSet<int> cache = new HashSet<int>();
+
+                for (int i = idx; i < nums.Length; i++)
+                {
+                    if (cache.Contains(nums[i]))
+                        continue;
+
+                    cache.Add(nums[i]);
+                    // add
+                    swaps(nums, idx, i);
+                    soFar.Add(nums[i]);
+                    helper(nums, i + 1, soFar, collection);
+                    soFar.RemoveAt(soFar.Count - 1);
+                    swaps(nums, idx, i);
+                    // remove
+                }
+            }
+        }
+
+        public void swaps(int[] arr, int left, int right)
+        {
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+        }
+
+
+        [TestMethod]
+        public void TestPalindromes()
+        {
+            string s = "abracadabra";
+            //string s = "aab";
+            partition(s);
+        }
+
+        public List<IList<string>> partition(string s)
+        {
+            List<IList<string>> result = new List<IList<string>>();
+            dfs(0, result, new List<string>(), s);
+            return result;
+        }
+
+        void dfs(int start, List<IList<string>> result, List<string> currentList, string s)
+        {
+            if (start >= s.Length) result.Add(new List<string>(currentList));
+            for (int end = start; end < s.Length; end++)
+            {
+                if (isPalindrome(s, start, end))
+                {
+                    // add current substring in the currentList
+                    currentList.Add(s.Substring(start, end - start + 1));
+                    dfs(end + 1, result, currentList, s);
+                    // backtrack and remove the current substring from currentList
+                    currentList.RemoveAt(currentList.Count - 1);
+                }
+            }
+        }
+
+        public bool isPalindrome(string s, int low, int high)
+        {
+            while (low < high)
+            {
+                if (s[low++] != s[high--]) return false;
+            }
+            return true;
+        }
+
+        [TestMethod]
+        public void TestBsts()
+        {
+            int n = 3;
+            //string s = "aab";
+            how_many_BSTs(n);
+        }
+
+        //private static long bst_count;
+
+        public static long how_many_BSTs(int n)
+        {
+            //BST_Helper(arr, 1, soFar);
+            if (n == 0) return 0;
+            return BST_Helper(1, n);
+        }
+
+        public static long BST_Helper(int start, int end)
+        {
+            long bst_count = 0;
+            //if(n == idx) {
+            if (start >= end)
+            {
+                return 1;
+            }
+
+            for (int i = start; i <= end; i++)
+            {
+                // left side of tree
+                long left = BST_Helper(start,  i - 1);
+                //n += 1;
+
+                // right side of tree
+                long right = BST_Helper(i + 1, end);
+
+                bst_count += left * right;
+                //n -= 1;
+            }
+
+            return bst_count;
+
+            /*for (int i = n; i >= 0; i--)
+                {
+                    // left side of tree
+                    BST_Helper(n, idx + 1, soFar);
+
+                    // right side of tree
+                    BST_Helper(n, idx + 1, soFar);
+                }
+                */
+        }
+
+        /*public static void BST_Helper(int[] arr, int idx, List<long> soFar)
+        {
+
+            //if(n == idx) {
+            if (idx == arr.Length)
+            {
+                bst_count += 1;
+            }
+            else
+            {
+
+                for (int i = idx; i < arr.Length; i++)
+                {
+
+                    swaps2(arr, idx, i);
+
+                    soFar.Add(arr[i]);
+                    BST_Helper(arr, i + 1, soFar);
+                    soFar.RemoveAt(soFar.Count - 1);
+                    swaps2(arr, idx, i);
+                }
+            }
+        }*/
+
+        private static void swaps2(int[] arr, int left, int right)
+        {
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+        }
+
+        [TestMethod]
+        public void TestStrs()
+        {
+
+            string[] strArray = {"abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"};
+
+            GroupStrings(strArray);
+        }
+
+        public IList<IList<string>> GroupStrings(string[] strings)
+        {
+
+            List<IList<string>> result = new List<IList<string>>();
+            Dictionary<string, List<string>> map = new Dictionary<string, List<string>>();
+            foreach (string str in strings)
+            {
+
+                string distanceString = helper(str);
+                if (!map.ContainsKey(distanceString))
+                {
+                    map.Add(distanceString, new List<string>());
+                }
+                map[distanceString].Add(str);
+            }
+
+            foreach (var strs in map.Values)
+            {
+                result.Add(strs);
+            }
+
+            return result;
+
+        }
+
+
+        public string helper(string s)
+        {
+            char[] arr = s.ToCharArray();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                int diff = arr[i + 1] - arr[i];
+                if (diff < 0)
+                {
+                    diff += 26;
+                }
+                sb.Append(diff);
+            }
+
+            return sb.ToString();
         }
     }
 }

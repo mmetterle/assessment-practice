@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using problems.Classes;
 
 namespace problems
 {
+    [TestClass]
     public class Top25
     {
         public static List<int[]> ThreeNumberSum(int[] array, int targetSum)
@@ -778,6 +780,92 @@ namespace problems
             }
 
             return result;
+        }
+
+
+        [TestMethod]
+        public static void mergeSortTest()
+        {
+            int[] arr = { 76, 89, 23, 1, 55, 78, 99, 12, 65, 100 };
+            mergeSortHelper(arr, 0, arr.Length - 1);
+        }
+
+
+        public static void mergeSortHelper(int[] arr, int start, int end)
+        {
+            if (start >= end)
+                return;
+
+            int mid = start + end / 2;
+
+            //int[] left = arr.SubArray(0, mid);
+            //int[] right = arr.SubArray(mid + `, );
+
+            mergeSortHelper(arr, start, mid);
+            mergeSortHelper(arr, mid + 1, end);
+
+            mergeCombine(arr, start, mid, end);
+
+        }
+
+        public static void mergeCombine(int[] arr, int start, int mid, int end)
+        {
+            //int i, j, k;
+            //int n1 = mid - start + 1;
+            //int n2 = end - mid;
+
+            int[] leftSubArray = arr.Take(mid - start + 1).ToArray();
+            int[] rightSubArray = arr.Skip(mid - start + 1).ToArray();
+
+            /*for (i = 0; i < n1; i++)
+                leftSubArray[i] = arr[start + i];
+
+            for (j = 0; j < n2; j++)
+                rightSubArray[j] = arr[mid + 1 + j];*/
+
+            //    = start;
+            //int j = mid + 1;
+
+            int i = 0;
+            int j = 0;
+            int k = start;
+            
+            //int[] auxArray = new int[end - start + 1];
+            
+            while (i < leftSubArray.Length && j < rightSubArray.Length)
+            {
+                if (leftSubArray[i] <= rightSubArray[j])
+                {
+                    arr[k] = leftSubArray[i];
+                    i++;
+                }
+                else
+                {
+                    arr[k] = rightSubArray[j];
+                    j++;
+                }
+
+                k++;
+            }
+
+            while (i < leftSubArray.Length)
+            {
+                arr[k] = arr[i];
+                i++;
+                k++;
+            }
+
+            while (j < rightSubArray.Length)
+            {
+                arr[k] = arr[j];
+                j++;
+                k++;
+            }
+
+            /*for (int m = start; m < end; m++)
+                arr[m] = arr[m];
+
+            return arr;*/
         }
 
     }
